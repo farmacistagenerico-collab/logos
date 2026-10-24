@@ -2,6 +2,12 @@
 
 Un portale gratuito di giochi educativi per bambini, progettato per tablet, smartphone e desktop. La prima avventura insegna a riconoscere le lettere e comporre parole italiane partendo da un’illustrazione.
 
+## Gioca online
+
+**[Apri Logos — Parole in viaggio](https://htmlpreview.github.io/?https://raw.githubusercontent.com/farmacistagenerico-collab/logos/arena/59040594-logos/logos.html)**
+
+Il gioco è pubblicato su GitHub nel file autonomo `logos.html` e reso giocabile tramite HTMLPreview. Tutte le risorse sono incorporate nel file: non richiede backend, build o servizi esterni durante il gioco.
+
 ## Avvia il progetto
 
 ```bash
