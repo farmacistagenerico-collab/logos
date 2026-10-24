@@ -795,7 +795,7 @@ svg {
   position: relative;
   display: grid;
   grid-template-columns: 265px minmax(0, 1fr);
-  min-height: 278px;
+  min-height: 300px;
   margin: 0 23px;
   overflow: hidden;
   border: 2.5px solid var(--ink);
@@ -806,7 +806,7 @@ svg {
 .picture-scene {
   position: relative;
   min-width: 0;
-  min-height: 276px;
+  min-height: 300px;
   overflow: hidden;
   border-right: 2.5px solid var(--ink);
   background: #a9e4ef;
@@ -831,19 +831,23 @@ svg {
 
 .picture-word-guide {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  bottom: 58px;
+  left: 50%;
   z-index: 7;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 34px;
-  padding: 4px 10px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  background: #fff0a6;
-  box-shadow: 0 3px 0 var(--ink);
+  width: max-content;
+  max-width: calc(100% - 22px);
+  min-width: 116px;
+  min-height: 50px;
+  padding: 7px 15px;
+  border: 2.5px solid var(--ink);
+  border-radius: 13px;
+  background: linear-gradient(180deg, #fffdf2 0%, #fff0a6 100%);
+  box-shadow: 0 4px 0 var(--ink), 0 9px 18px rgba(23, 50, 77, 0.12);
   color: var(--ink);
+  transform: translateX(-50%);
 }
 
 .picture-word-guide--half {
@@ -857,11 +861,18 @@ svg {
 .picture-word-guide-letters {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 20px;
+  justify-content: center;
+  gap: 5px;
+  font-size: 29px;
   font-weight: 900;
   line-height: 1;
   letter-spacing: 1px;
+  text-shadow: 0 2px 0 #fff;
+}
+
+.picture-word-guide--full .picture-word-guide-letters {
+  font-size: 32px;
+  letter-spacing: 2px;
 }
 
 .picture-word-guide-letters .is-hidden-letter {
@@ -871,11 +882,11 @@ svg {
 
 .word-picture {
   position: absolute;
-  top: 25px;
+  top: 18px;
   left: 50%;
   z-index: 3;
-  width: 238px;
-  height: 188px;
+  width: 220px;
+  height: 170px;
   overflow: visible;
   transform: translateX(-50%);
   filter: drop-shadow(0 5px 0 rgba(23, 50, 77, 0.1));
@@ -1957,7 +1968,7 @@ svg {
   .level-item { gap: 8px; padding-right: 7px; padding-left: 7px; }
   .level-number { flex-basis: 37px; width: 37px; }
   .challenge-stage { grid-template-columns: 225px minmax(0, 1fr); }
-  .word-picture { width: 213px; }
+  .word-picture { top: 20px; width: 205px; height: 160px; }
   .answer-zone { padding-right: 15px; padding-left: 15px; }
   .answer-zone h2 { font-size: 21px; }
   .word-slot { width: 40px; height: 51px; font-size: 25px; }
@@ -1984,7 +1995,7 @@ svg {
   .unicorn-mini-progress { grid-column: 1 / -1; }
   .unicorn-progress-copy em { grid-column: 1 / -1; }
   .challenge-stage { grid-template-columns: 255px minmax(0, 1fr); }
-  .word-picture { width: 231px; }
+  .word-picture { top: 18px; width: 215px; height: 166px; }
   .pixel-cloud--two { top: 580px; }
 }
 
@@ -2006,8 +2017,11 @@ svg {
   .level-word-count { font-size: 8px; }
   .level-chevron { display: none; }
   .challenge-stage { grid-template-columns: 1fr; }
-  .picture-scene { min-height: 217px; border-right: 0; border-bottom: 2.5px solid var(--ink); }
-  .word-picture { top: 14px; width: 208px; height: 165px; }
+  .picture-scene { min-height: 270px; border-right: 0; border-bottom: 2.5px solid var(--ink); }
+  .picture-word-guide { bottom: 55px; }
+  .picture-word-guide-letters { font-size: 28px; }
+  .picture-word-guide--full .picture-word-guide-letters { font-size: 31px; }
+  .word-picture { top: 20px; width: 195px; height: 141px; }
   .scene-hill { bottom: 22px; left: 8%; }
   .scene-cloud { right: 12%; }
   .listen-button { bottom: 10px; }
@@ -2068,11 +2082,12 @@ svg {
   .word-progress { gap: 4px; padding: 0 12px 13px; }
   .word-progress span { height: 7px; }
   .challenge-stage { margin: 0 9px; border-radius: 14px; }
-  .picture-scene { min-height: 201px; }
+  .picture-scene { min-height: 260px; }
   .picture-label { top: 9px; left: 9px; min-height: 23px; font-size: 6px; }
-  .picture-word-guide { top: 9px; right: 9px; min-height: 28px; padding: 3px 7px; }
-  .picture-word-guide-letters { gap: 3px; font-size: 16px; }
-  .word-picture { top: 13px; width: 187px; height: 151px; }
+  .picture-word-guide { bottom: 54px; min-width: 108px; min-height: 46px; padding: 6px 12px; border-radius: 11px; }
+  .picture-word-guide-letters { gap: 4px; font-size: 26px; }
+  .picture-word-guide--full .picture-word-guide-letters { font-size: 29px; }
+  .word-picture { top: 20px; width: 183px; height: 136px; }
   .scene-ground { height: 30px; }
   .listen-button { min-height: 35px; font-size: 10.5px; }
   .listen-button svg { width: 17px; }
