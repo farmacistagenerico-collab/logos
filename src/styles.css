@@ -509,6 +509,7 @@ svg {
   font-size: 15px;
 }
 
+.level-number--0 { background: #79d4c0; }
 .level-number--1 { background: var(--yellow); }
 .level-number--2 { background: #b9a4ec; }
 .level-number--3 { background: #f49385; }
@@ -626,6 +627,7 @@ svg {
   font-size: 8px;
 }
 
+.level-badge--0 { background: #8de0ce; }
 .level-badge--1 { background: var(--yellow); }
 .level-badge--2 { background: #c4b1f1; }
 .level-badge--3 { background: #f59b8b; }
@@ -711,6 +713,46 @@ svg {
   background: rgba(255, 253, 245, 0.93);
   font-family: 'Press Start 2P', monospace;
   font-size: 7px;
+}
+
+.picture-word-guide {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 4px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: #fff0a6;
+  box-shadow: 0 3px 0 var(--ink);
+  color: var(--ink);
+}
+
+.picture-word-guide--half {
+  background: #fff5c9;
+}
+
+.picture-word-guide--first {
+  background: #e5f3ff;
+}
+
+.picture-word-guide-letters {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.picture-word-guide-letters .is-hidden-letter {
+  color: #879aa4;
+  transform: translateY(-2px);
 }
 
 .word-picture {
@@ -1625,7 +1667,7 @@ svg {
   .adventure-panel { padding: 16px 18px 18px; }
   .adventure-heading { padding: 0; }
   .adventure-progress { margin: 11px 0 14px; }
-  .level-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .level-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
   .level-item { min-height: 76px; }
   .level-copy small { font-size: 10px; }
   .buddy-card { display: none; }
@@ -1708,6 +1750,8 @@ svg {
   .challenge-stage { margin: 0 9px; border-radius: 14px; }
   .picture-scene { min-height: 201px; }
   .picture-label { top: 9px; left: 9px; min-height: 23px; font-size: 6px; }
+  .picture-word-guide { top: 9px; right: 9px; min-height: 28px; padding: 3px 7px; }
+  .picture-word-guide-letters { gap: 3px; font-size: 16px; }
   .word-picture { top: 13px; width: 187px; height: 151px; }
   .scene-ground { height: 30px; }
   .listen-button { min-height: 35px; font-size: 10.5px; }

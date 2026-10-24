@@ -29,6 +29,7 @@ import {
   STORAGE_KEY,
   completeLevel,
   completeWord,
+  getWordGuide,
   loadProgress,
   progressPercentage,
   shuffleLetters,
@@ -90,6 +91,7 @@ export default function App() {
 
   const currentLevel = LEVELS[levelIndex];
   const currentWord = currentLevel.words[wordIndex];
+  const wordGuide = getWordGuide(currentWord.text, currentLevel.guide);
   const isLastWord = wordIndex === currentLevel.words.length - 1;
   const isLastLevel = levelIndex === LEVELS.length - 1;
   const completedCount = progress.completedWordIds.length;
@@ -374,8 +376,8 @@ export default function App() {
                     aria-current={active ? 'step' : undefined}
                     aria-label={`${level.name}. ${locked ? 'Bloccato' : `${levelCompletedCount} parole su ${level.words.length} completate`}`}
                   >
-                    <span className={`level-number level-number--${index + 1}`}>
-                      {locked ? <LockKeyhole size={19} /> : levelCompleted ? <Check size={22} /> : index + 1}
+                    <span className={`level-number level-number--${index}`}>
+                      {locked ? <LockKeyhole size={19} /> : levelCompleted ? <Check size={22} /> : index}
                     </span>
                     <span className="level-copy">
                       <strong>{level.shortName}</strong>
@@ -404,7 +406,7 @@ export default function App() {
           <section className={`game-card${roundStatus === 'word-complete' ? ' is-celebrating' : ''}`} aria-label={`Gioco: ${currentLevel.name}`}>
             <div className="game-card-top">
               <div className="game-meta">
-                <span className={`level-badge level-badge--${levelIndex + 1}`}>LIVELLO {levelIndex + 1}</span>
+                <span className={`level-badge level-badge--${levelIndex}`}>LIVELLO {levelIndex}</span>
                 <span className="mechanic-label">{currentLevel.mechanic}</span>
               </div>
               <span className="word-counter">Parola <strong>{wordIndex + 1}</strong> di {currentLevel.words.length}</span>
@@ -438,6 +440,23 @@ export default function App() {
 
               <div className="picture-scene">
                 <span className="picture-label"><ImageIcon size={14} /> INDOVINA</span>
+                {wordGuide && (
+                  <div
+                    className={`picture-word-guide picture-word-guide--${currentLevel.guide}`}
+                    role="img"
+                    aria-label={currentLevel.guide === 'full'
+                      ? `Parola da copiare: ${currentWord.text}`
+                      : 'Alcune lettere della parola sono nascoste'}
+                  >
+                    <span className="picture-word-guide-letters" aria-hidden="true">
+                      {wordGuide.split('').map((character, index) => (
+                        <span className={character === '_' ? 'is-hidden-letter' : ''} key={index}>
+                          {character}
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                )}
                 <div className="scene-cloud" aria-hidden="true"><i /><i /></div>
                 <WordPicture name={currentWord.illustration} />
                 <div className="scene-hill scene-hill--back" aria-hidden="true" />
@@ -566,7 +585,7 @@ export default function App() {
 
             <div className="difficulty-note">
               <strong>Come cresce la difficoltà?</strong>
-              <p>Prima l’alfabeto è ordinato e le parole sono corte. Poi le lettere si mischiano e le parole diventano più lunghe. Il pulsante <b>Aiuto</b> è sempre disponibile.</p>
+              <p>All’inizio la parola è tutta visibile nell’illustrazione. Poi restano solo alcune lettere, poi la prima e infine soltanto l’immagine. Anche l’alfabeto si mischia nei livelli più difficili. Il pulsante <b>Aiuto</b> è sempre disponibile.</p>
             </div>
 
             <button className="button button--primary parents-resume" type="button" onClick={() => setParentsOpen(false)} autoFocus>
@@ -611,7 +630,7 @@ export default function App() {
                 <RotateCcw size={18} /> Rigioca
               </button>
               <button className="button button--primary" type="button" onClick={goToNextLevel} autoFocus>
-                {isLastLevel ? 'Gioca ancora' : `Vai al livello ${levelIndex + 2}`}
+                {isLastLevel ? 'Gioca ancora' : `Vai al livello ${levelIndex + 1}`}
                 <ArrowRight size={19} />
               </button>
             </div>

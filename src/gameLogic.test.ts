@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { ALPHABET } from './data';
+import { ALPHABET, LEVELS, TOTAL_WORDS } from './data';
 import {
   INITIAL_PROGRESS,
   completeLevel,
   completeWord,
+  getWordGuide,
   progressPercentage,
   shuffleLetters,
 } from './gameLogic';
@@ -34,11 +35,31 @@ describe('game progression', () => {
   });
 
   it('never unlocks beyond the last level', () => {
-    expect(completeLevel(INITIAL_PROGRESS, 2).unlockedLevel).toBe(2);
+    const lastLevel = LEVELS.length - 1;
+    expect(completeLevel(INITIAL_PROGRESS, lastLevel).unlockedLevel).toBe(lastLevel);
   });
 
   it('calculates the adventure percentage', () => {
     expect(progressPercentage(0)).toBe(0);
-    expect(progressPercentage(11)).toBe(100);
+    expect(progressPercentage(TOTAL_WORDS)).toBe(100);
+  });
+});
+
+describe('progressive word guides', () => {
+  it('shows the whole word at level 0', () => {
+    expect(getWordGuide('CASA', 'full')).toBe('CASA');
+  });
+
+  it('hides alternating letters at level 1', () => {
+    expect(getWordGuide('CASA', 'half')).toBe('C_S_');
+    expect(getWordGuide('GATTO', 'half')).toBe('G_T_O');
+  });
+
+  it('shows only the first letter at level 2', () => {
+    expect(getWordGuide('FIORE', 'first')).toBe('F____');
+  });
+
+  it('hides the whole guide at level 3', () => {
+    expect(getWordGuide('TARTARUGA', 'none')).toBe('');
   });
 });

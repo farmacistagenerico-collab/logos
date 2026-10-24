@@ -1,6 +1,7 @@
-import { LEVELS, TOTAL_WORDS } from './data';
+import { LEVELS, TOTAL_WORDS, type GuideMode } from './data';
 
-export const STORAGE_KEY = 'logos-adventure-v1';
+export const STORAGE_KEY = 'logos-adventure-v2';
+export const LEGACY_STORAGE_KEY = 'logos-adventure-v1';
 
 export interface SavedProgress {
   completedWordIds: string[];
@@ -26,6 +27,16 @@ export function shuffleLetters(
   return result;
 }
 
+export function getWordGuide(word: string, mode: GuideMode): string {
+  if (!word || mode === 'none') return '';
+  if (mode === 'full') return word;
+  if (mode === 'first') return word[0] + '_'.repeat(word.length - 1);
+  return word
+    .split('')
+    .map((letter, index) => (index % 2 === 0 ? letter : '_'))
+    .join('');
+}
+
 export function completeWord(progress: SavedProgress, wordId: string): SavedProgress {
   if (progress.completedWordIds.includes(wordId)) return progress;
   return {
@@ -49,7 +60,11 @@ export function completeLevel(
 
 export function loadProgress(): SavedProgress {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const currentSave = window.localStorage.getItem(STORAGE_KEY);
+    const legacySave = currentSave === null
+      ? window.localStorage.getItem(LEGACY_STORAGE_KEY)
+      : null;
+    const raw = currentSave ?? legacySave;
     if (!raw) return INITIAL_PROGRESS;
 
     const parsed = JSON.parse(raw) as Partial<SavedProgress>;
@@ -59,13 +74,16 @@ export function loadProgress(): SavedProgress {
     const completedWordIds = Array.isArray(parsed.completedWordIds)
       ? [...new Set(parsed.completedWordIds.filter((id) => validWordIds.has(id)))]
       : [];
+    const savedLevel = typeof parsed.unlockedLevel === 'number'
+      ? Math.max(0, Math.min(Math.floor(parsed.unlockedLevel), LEVELS.length - 1))
+      : 0;
+    const isLegacySave = currentSave === null && legacySave !== null;
 
     return {
       completedWordIds,
-      unlockedLevel:
-        typeof parsed.unlockedLevel === 'number'
-          ? Math.max(0, Math.min(Math.floor(parsed.unlockedLevel), LEVELS.length - 1))
-          : 0,
+      unlockedLevel: isLegacySave
+        ? Math.min(savedLevel + 1, LEVELS.length - 1)
+        : savedLevel,
       soundEnabled: parsed.soundEnabled !== false,
     };
   } catch {

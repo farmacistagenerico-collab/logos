@@ -14,6 +14,8 @@ export type IllustrationName =
   | 'elefante'
   | 'aquilone';
 
+export type GuideMode = 'full' | 'half' | 'first' | 'none';
+
 export interface Word {
   id: string;
   text: string;
@@ -27,17 +29,33 @@ export interface Level {
   description: string;
   mechanic: string;
   shuffled: boolean;
+  guide: GuideMode;
   words: Word[];
 }
 
 export const LEVELS: Level[] = [
   {
+    id: 'impariamo-a-leggere',
+    name: 'Impariamo a leggere',
+    shortName: 'Con la guida',
+    description: 'La parola è tutta visibile',
+    mechanic: 'Parola completa + alfabeto in ordine',
+    shuffled: false,
+    guide: 'full',
+    words: [
+      { id: 'guida-casa', text: 'CASA', illustration: 'casa' },
+      { id: 'guida-sole', text: 'SOLE', illustration: 'sole' },
+      { id: 'guida-mela', text: 'MELA', illustration: 'mela' },
+    ],
+  },
+  {
     id: 'prime-parole',
     name: 'Le prime parole',
     shortName: 'Prime parole',
-    description: 'Lettere in ordine e parole corte',
-    mechanic: 'Alfabeto in ordine',
+    description: 'Alcune lettere come indizio',
+    mechanic: 'Metà parola visibile',
     shuffled: false,
+    guide: 'half',
     words: [
       { id: 'casa', text: 'CASA', illustration: 'casa' },
       { id: 'sole', text: 'SOLE', illustration: 'sole' },
@@ -49,9 +67,10 @@ export const LEVELS: Level[] = [
     id: 'parole-in-salita',
     name: 'Parole in salita',
     shortName: 'In salita',
-    description: 'Lettere mischiate, più attenzione',
-    mechanic: 'Alfabeto mischiato',
+    description: 'Solo la prima lettera visibile',
+    mechanic: 'Prima lettera + alfabeto mischiato',
     shuffled: true,
+    guide: 'first',
     words: [
       { id: 'fiore', text: 'FIORE', illustration: 'fiore' },
       { id: 'pesce', text: 'PESCE', illustration: 'pesce' },
@@ -63,9 +82,10 @@ export const LEVELS: Level[] = [
     id: 'sfida-da-campione',
     name: 'Sfida da campione',
     shortName: 'Da campione',
-    description: 'Parole lunghe per super lettori',
-    mechanic: 'Parole lunghe + lettere mischiate',
+    description: 'Solo immagine e parole lunghe',
+    mechanic: 'Parola nascosta + lettere mischiate',
     shuffled: true,
+    guide: 'none',
     words: [
       { id: 'tartaruga', text: 'TARTARUGA', illustration: 'tartaruga' },
       { id: 'elefante', text: 'ELEFANTE', illustration: 'elefante' },

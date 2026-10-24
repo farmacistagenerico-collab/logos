@@ -4,9 +4,9 @@ Un portale gratuito di giochi educativi per bambini, progettato per tablet, smar
 
 ## Gioca online
 
-**[Apri Logos — Parole in viaggio](https://cdn.jsdelivr.net/gh/farmacistagenerico-collab/logos@5aa48ffbbf9e3a0414b8bc69a339f4ab83337bdf/logos.html)**
+**[Apri Logos — Parole in viaggio](https://raw.githack.com/farmacistagenerico-collab/logos/arena/59040594-logos/logos.html)**
 
-Il gioco è pubblicato su GitHub nel file autonomo `logos.html` e distribuito direttamente tramite la CDN jsDelivr. Tutte le risorse sono incorporate nel file: non richiede backend, build o servizi esterni durante il gioco.
+Il gioco è pubblicato su GitHub nel file autonomo `logos.html` e aperto come pagina HTML tramite RawGitHack. Alla prima apertura il servizio chiede di premere **Open the page** per confermare la visualizzazione. Tutte le risorse sono incorporate nel file: non richiede backend, build o servizi esterni durante il gioco.
 
 ## Avvia il progetto
 
@@ -20,22 +20,24 @@ Il server Vite è disponibile su `http://localhost:5173`.
 ## Comandi
 
 ```bash
-npm run build   # controllo TypeScript e build di produzione
-npm test        # test della logica di gioco
-npm run preview # anteprima della build
+npm run build            # controllo TypeScript e build di produzione
+npm test                 # test della logica di gioco
+npm run preview          # anteprima della build
+npm run build:standalone # genera il file autonomo logos.html
 ```
 
 ## Il gioco
 
-- **Livello 1 — Le prime parole:** alfabeto italiano ordinato e parole corte.
-- **Livello 2 — Parole in salita:** alfabeto mischiato e nuove parole.
-- **Livello 3 — Sfida da campione:** parole lunghe e lettere mischiate.
-- 11 illustrazioni originali, pronuncia tramite le voci italiane del dispositivo ed effetti sonori sintetizzati localmente.
+- **Livello 0 — Impariamo a leggere:** la parola completa è visibile nell’illustrazione e l’alfabeto è ordinato.
+- **Livello 1 — Le prime parole:** alcune lettere restano visibili come indizio.
+- **Livello 2 — Parole in salita:** resta soltanto la prima lettera e l’alfabeto si mischia.
+- **Livello 3 — Sfida da campione:** la parola scritta scompare, restano solo l’immagine e le lettere mischiate.
+- 14 parole da comporre e 11 illustrazioni originali, con pronuncia tramite le voci italiane del dispositivo ed effetti sonori sintetizzati localmente.
 - Indizi su richiesta, feedback positivo, supporto alla tastiera e nessuna penalità o limite di tempo.
-- Livelli sbloccabili e progressi salvati esclusivamente nel `localStorage` del dispositivo.
+- Livelli sbloccabili e progressi salvati esclusivamente nel `localStorage` del dispositivo, con migrazione dai salvataggi precedenti.
 - Area genitori con possibilità di azzerare i progressi.
 
-Non sono richiesti account, servizi esterni, acquisti o connessione a un backend. La grafica pixel-art è originale e non utilizza personaggi o risorse di franchise esistenti.
+Non sono richiesti account, acquisti o connessione a un backend. La grafica pixel-art è originale e non utilizza personaggi o risorse di franchise esistenti.
 
 ## Tecnologie
 
