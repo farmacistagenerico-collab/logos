@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.vite/
+.arena/
+*.local
+*.tsbuildinfo
+.DS_Store
