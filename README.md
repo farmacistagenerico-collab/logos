@@ -4,9 +4,9 @@ Un portale gratuito di giochi educativi per bambini, progettato per tablet, smar
 
 ## Gioca online
 
-**[Apri Logos — Parole in viaggio](https://htmlpreview.github.io/?https://raw.githubusercontent.com/farmacistagenerico-collab/logos/arena/59040594-logos/logos.html)**
+**[Apri Logos — Parole in viaggio](https://cdn.jsdelivr.net/gh/farmacistagenerico-collab/logos@5aa48ffbbf9e3a0414b8bc69a339f4ab83337bdf/logos.html)**
 
-Il gioco è pubblicato su GitHub nel file autonomo `logos.html` e reso giocabile tramite HTMLPreview. Tutte le risorse sono incorporate nel file: non richiede backend, build o servizi esterni durante il gioco.
+Il gioco è pubblicato su GitHub nel file autonomo `logos.html` e distribuito direttamente tramite la CDN jsDelivr. Tutte le risorse sono incorporate nel file: non richiede backend, build o servizi esterni durante il gioco.
 
 ## Avvia il progetto
 
