@@ -259,6 +259,34 @@ svg {
   font-weight: 800;
 }
 
+.collection-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 11px;
+  border: 2px solid var(--ink);
+  border-radius: 11px;
+  background: #eee5ff;
+  box-shadow: 0 3px 0 var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.collection-button strong {
+  padding-left: 6px;
+  border-left: 1.5px solid #a58bbd;
+  color: #684d91;
+  font-size: 11px;
+}
+
+.collection-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
 .sound-button {
   display: inline-flex;
   align-items: center;
@@ -552,16 +580,81 @@ svg {
   color: #8c721c;
 }
 
-.buddy-card {
+.unicorn-progress-card {
   display: flex;
   align-items: center;
-  flex-direction: column;
-  margin-top: 18px;
-  padding: 8px 12px 14px;
-  border: 2px dashed #73a88d;
+  gap: 6px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 8px;
+  border: 2px solid #a58bbd;
   border-radius: 15px;
-  background: #e6f6e9;
-  text-align: center;
+  background: #f3ebff;
+  box-shadow: 0 3px 0 #a58bbd;
+  text-align: left;
+  transition: transform 140ms ease, background 140ms ease;
+}
+
+.unicorn-progress-picture {
+  flex: 0 0 91px;
+  width: 91px;
+  height: 76px;
+}
+
+.unicorn-progress-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.unicorn-progress-copy small {
+  color: #7b6594;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 5.5px;
+  line-height: 1.4;
+}
+
+.unicorn-progress-copy strong {
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.unicorn-block-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+  color: #684d91;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.unicorn-mini-progress {
+  height: 7px;
+  margin-top: 6px;
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  background: #fff;
+}
+
+.unicorn-mini-progress i {
+  display: block;
+  height: 100%;
+  background: #b795e4;
+  transition: width 350ms ease;
+}
+
+.unicorn-progress-copy em {
+  margin-top: 5px;
+  color: #766487;
+  font-size: 8.5px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .pixel-buddy {
@@ -587,6 +680,27 @@ svg {
   color: #56806a;
   font-size: 10px;
   font-weight: 700;
+}
+
+.block-unicorn {
+  display: block;
+  overflow: visible;
+}
+
+.unicorn-part {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 250ms ease, filter 250ms ease;
+}
+
+.unicorn-part.is-missing {
+  opacity: 0.12;
+  filter: grayscale(1);
+}
+
+.unicorn-part.is-built {
+  opacity: 1;
+  animation: unicorn-part-build 380ms cubic-bezier(0.2, 0.85, 0.35, 1.2) both;
 }
 
 .game-card {
@@ -986,6 +1100,29 @@ svg {
 .feedback--hint { color: #79611d; }
 .feedback--hint .feedback-icon { background: #fff1ac; color: #9a7516; }
 
+.block-reward {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 5px 10px;
+  border: 2px solid #b89537;
+  border-radius: 9px;
+  background: #fff1ac;
+  color: #765d18;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.2;
+  animation: reward-pop 400ms cubic-bezier(0.2, 0.85, 0.35, 1.2) both;
+}
+
+.block-reward.is-practice {
+  border-color: #9ab5cb;
+  background: #e9f5fb;
+  color: #456f8c;
+}
+
 .word-complete-actions {
   display: flex;
   justify-content: center;
@@ -1296,6 +1433,7 @@ svg {
 }
 
 .parents-modal,
+.collection-modal,
 .level-complete-modal {
   position: relative;
   width: 100%;
@@ -1465,6 +1603,159 @@ svg {
   background: #f8ddd5;
 }
 
+.collection-modal {
+  max-width: 650px;
+  padding: 27px 27px 24px;
+}
+
+.collection-heading-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 14px;
+  border: 2.5px solid var(--ink);
+  border-radius: 15px;
+  background: #eee5ff;
+  box-shadow: 0 4px 0 var(--ink);
+  color: #72539d;
+}
+
+.collection-modal h2 {
+  margin: 6px 0 7px;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.collection-intro {
+  margin: 0;
+  color: #617580;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.collection-summary {
+  display: flex;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.collection-summary span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 2px solid #c0aad8;
+  border-radius: 999px;
+  background: #f5efff;
+  color: #684d91;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.collection-card {
+  position: relative;
+  min-width: 0;
+  padding: 11px 10px 12px;
+  border: 2px solid #c2afd9;
+  border-radius: 15px;
+  background: #faf6ff;
+  text-align: center;
+}
+
+.collection-card.is-complete {
+  border-color: #68aa79;
+  background: #f0f9ef;
+}
+
+.collection-card.is-locked {
+  background: #f0f1f2;
+  border-color: #aeb9bd;
+}
+
+.collection-card-level {
+  display: block;
+  color: #7b6b8d;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+}
+
+.collection-unicorn {
+  width: 137px;
+  height: 111px;
+  margin: 1px auto -2px;
+}
+
+.collection-card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.collection-card-progress {
+  height: 8px;
+  margin: 7px auto 6px;
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  background: #fff;
+}
+
+.collection-card-progress i {
+  display: block;
+  height: 100%;
+  background: #b795e4;
+}
+
+.collection-card.is-complete .collection-card-progress i {
+  background: #62c777;
+}
+
+.collection-card p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  color: #684d91;
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+.collection-card small {
+  display: block;
+  margin-top: 3px;
+  color: #718089;
+  font-size: 9.5px;
+  font-weight: 800;
+}
+
+.collection-card.is-complete small {
+  color: #398353;
+}
+
+.collection-resume {
+  width: 100%;
+}
+
+.level-unicorn {
+  width: 169px;
+  height: 137px;
+  margin: -6px auto 2px;
+  filter: drop-shadow(0 5px 0 rgba(23, 50, 77, 0.12));
+  animation: trophy-enter 600ms cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+}
+
 .level-complete-modal {
   max-width: 510px;
   padding: 27px 30px 30px;
@@ -1548,6 +1839,18 @@ svg {
 
 .celebration-spark--one { top: 58px; left: 65px; }
 .celebration-spark--two { top: 94px; right: 57px; width: 9px; height: 9px; background: #8ed8e8; }
+
+@keyframes unicorn-part-build {
+  0% { opacity: 0; transform: translateY(-12px) scale(0.65) rotate(-5deg); }
+  70% { opacity: 1; transform: translateY(2px) scale(1.06) rotate(1deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+
+@keyframes reward-pop {
+  0% { opacity: 0; transform: translateY(7px) scale(0.8); }
+  70% { opacity: 1; transform: translateY(-2px) scale(1.06); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
 
 @keyframes next-slot-pulse {
   0%, 100% { transform: translateY(0); }
@@ -1640,6 +1943,8 @@ svg {
 
   .button--primary:hover { background: #df5552; }
   .button--light:hover { background: #eff8f6; }
+  .collection-button:hover { background: #e2d2ff; }
+  .unicorn-progress-card:hover { background: #e9dbff; transform: translateY(-2px); }
   .parents-button:hover,
   .sound-button:hover,
   .listen-button:hover,
@@ -1670,7 +1975,14 @@ svg {
   .level-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
   .level-item { min-height: 76px; }
   .level-copy small { font-size: 10px; }
-  .buddy-card { display: none; }
+  .unicorn-progress-card { max-width: 430px; margin: 14px auto 0; padding: 6px 12px; }
+  .unicorn-progress-picture { flex-basis: 82px; width: 82px; height: 66px; }
+  .unicorn-progress-copy { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 10px; }
+  .unicorn-progress-copy small,
+  .unicorn-progress-copy strong { grid-column: 1; }
+  .unicorn-block-count { grid-column: 2; grid-row: 1 / span 2; justify-self: end; margin-top: 0; }
+  .unicorn-mini-progress { grid-column: 1 / -1; }
+  .unicorn-progress-copy em { grid-column: 1 / -1; }
   .challenge-stage { grid-template-columns: 255px minmax(0, 1fr); }
   .word-picture { width: 231px; }
   .pixel-cloud--two { top: 580px; }
@@ -1716,6 +2028,9 @@ svg {
   .logo-mark { width: 44px; height: 44px; }
   .brand-name { font-size: 28px; }
   .header-actions { gap: 8px; }
+  .collection-button { min-height: 40px; padding: 0 8px; gap: 5px; }
+  .collection-button > span { display: none; }
+  .collection-button strong { padding-left: 5px; font-size: 10px; }
   .sound-button { width: 41px; min-height: 40px; padding: 0; }
   .sound-button span { display: none; }
   .star-counter { min-height: 41px; padding: 0 9px; }
@@ -1732,6 +2047,11 @@ svg {
   .parents-button span { display: none; }
   .game-layout { gap: 15px; }
   .adventure-panel { padding: 13px 11px 14px; border-radius: 17px; box-shadow: 0 5px 0 var(--ink); }
+  .unicorn-progress-card { margin-top: 12px; padding: 6px 9px; }
+  .unicorn-progress-picture { flex-basis: 70px; width: 70px; height: 57px; }
+  .unicorn-progress-copy strong { font-size: 14px; }
+  .unicorn-block-count { font-size: 9px; }
+  .unicorn-progress-copy em { font-size: 8px; }
   .adventure-heading h2 { font-size: 17px; }
   .section-kicker { font-size: 6.5px; }
   .percentage-badge { min-width: 41px; height: 28px; font-size: 10px; }
@@ -1790,6 +2110,7 @@ svg {
   .logo-mark--small { width: 32px; height: 32px; }
   .modal-backdrop { padding: 12px; }
   .parents-modal,
+  .collection-modal,
   .level-complete-modal { max-height: calc(100dvh - 24px); border-radius: 19px; }
   .parents-modal { padding: 24px 19px 20px; }
   .parents-modal-icon { width: 49px; height: 49px; margin-bottom: 14px; }
@@ -1800,8 +2121,22 @@ svg {
   .parent-features strong { font-size: 13px; }
   .difficulty-note { padding: 12px; }
   .difficulty-note p { font-size: 11px; }
+  .collection-modal { padding: 22px 14px 18px; }
+  .collection-heading-icon { width: 47px; height: 47px; margin-bottom: 12px; }
+  .collection-modal h2 { font-size: 25px; }
+  .collection-intro { font-size: 11.5px; }
+  .collection-summary { gap: 6px; margin-top: 12px; }
+  .collection-summary span { padding: 5px 7px; font-size: 9.5px; }
+  .collection-summary svg { width: 15px; }
+  .collection-grid { gap: 8px; margin: 14px 0; }
+  .collection-card { padding: 9px 6px 10px; }
+  .collection-unicorn { width: 108px; height: 88px; }
+  .collection-card h3 { font-size: 15px; }
+  .collection-card p { font-size: 9px; }
+  .collection-card small { font-size: 8px; }
+  .collection-card-level { font-size: 5px; }
   .level-complete-modal { padding: 23px 18px 25px; }
-  .pixel-trophy { width: 101px; height: 98px; }
+  .level-unicorn { width: 139px; height: 113px; }
   .level-complete-modal h2 { font-size: 26px; }
   .level-complete-modal > p { font-size: 12.5px; }
   .level-complete-actions { gap: 8px; }

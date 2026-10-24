@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  Blocks,
   Check,
   ChevronRight,
   Gamepad2,
@@ -35,7 +36,7 @@ import {
   shuffleLetters,
   type SavedProgress,
 } from './gameLogic';
-import { ALPHABET, LEVELS, TOTAL_WORDS, VOWELS } from './data';
+import { ALPHABET, LEVELS, TOTAL_WORDS, UNICORNS, VOWELS, type Level } from './data';
 import {
   playCorrectSound,
   playLevelCompleteSound,
@@ -44,7 +45,8 @@ import {
   speakItalian,
 } from './audio';
 import WordPicture from './components/WordPicture';
-import { LogoMark, PixelBuddy, PixelTrophy } from './components/PixelArt';
+import BlockUnicorn from './components/BlockUnicorn';
+import { LogoMark } from './components/PixelArt';
 
 type RoundStatus = 'playing' | 'word-complete' | 'level-complete';
 type FeedbackKind = 'neutral' | 'good' | 'try-again' | 'hint' | 'success';
@@ -60,6 +62,10 @@ const initialFeedback: Feedback = {
 };
 
 const confettiColors = ['#ffd84d', '#ef665f', '#62c777', '#67c9e8', '#9a7ee8'];
+
+function countCompletedWords(level: Level, completedWordIds: string[]): number {
+  return level.words.filter((word) => completedWordIds.includes(word.id)).length;
+}
 
 function WorldDecorations() {
   return (
@@ -85,6 +91,8 @@ export default function App() {
   const [correctLetter, setCorrectLetter] = useState<string | null>(null);
   const [hintLetter, setHintLetter] = useState<string | null>(null);
   const [parentsOpen, setParentsOpen] = useState(false);
+  const [collectionOpen, setCollectionOpen] = useState(false);
+  const [earnedBlock, setEarnedBlock] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const flashTimer = useRef<number | null>(null);
   const hintTimer = useRef<number | null>(null);
@@ -96,6 +104,11 @@ export default function App() {
   const isLastLevel = levelIndex === LEVELS.length - 1;
   const completedCount = progress.completedWordIds.length;
   const adventurePercentage = progressPercentage(completedCount);
+  const currentUnicorn = UNICORNS[levelIndex];
+  const currentUnicornBlocks = countCompletedWords(currentLevel, progress.completedWordIds);
+  const completedUnicornCount = LEVELS.filter(
+    (level) => countCompletedWords(level, progress.completedWordIds) === level.words.length,
+  ).length;
 
   const letters = useMemo(
     () => (currentLevel.shuffled ? shuffleLetters(ALPHABET) : [...ALPHABET]),
@@ -119,13 +132,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (!parentsOpen && roundStatus !== 'level-complete') return;
+    if (!parentsOpen && !collectionOpen && roundStatus !== 'level-complete') return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [parentsOpen, roundStatus]);
+  }, [parentsOpen, collectionOpen, roundStatus]);
 
   const resetRound = useCallback(() => {
     if (flashTimer.current) window.clearTimeout(flashTimer.current);
@@ -136,6 +149,7 @@ export default function App() {
     setWrongLetter(null);
     setCorrectLetter(null);
     setHintLetter(null);
+    setEarnedBlock(false);
   }, []);
 
   const flashLetter = useCallback((letter: string, kind: 'right' | 'wrong') => {
@@ -150,7 +164,7 @@ export default function App() {
 
   const handleLetter = useCallback(
     (letter: string) => {
-      if (roundStatus !== 'playing' || parentsOpen) return;
+      if (roundStatus !== 'playing' || parentsOpen || collectionOpen) return;
       const expectedLetter = currentWord.text[enteredLetters.length];
 
       if (letter !== expectedLetter) {
@@ -171,6 +185,7 @@ export default function App() {
 
       if (nextLetters.length === currentWord.text.length) {
         setRoundStatus('word-complete');
+        setEarnedBlock(!progress.completedWordIds.includes(currentWord.id));
         setFeedback({
           kind: 'success',
           text: `Fantastico! Hai scritto ${currentWord.text}!`,
@@ -195,12 +210,14 @@ export default function App() {
       }
     },
     [
+      collectionOpen,
       currentWord,
       enteredLetters,
       flashLetter,
       isLastWord,
       levelIndex,
       parentsOpen,
+      progress.completedWordIds,
       progress.soundEnabled,
       roundStatus,
     ],
@@ -208,12 +225,13 @@ export default function App() {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && parentsOpen) {
+      if (event.key === 'Escape' && (parentsOpen || collectionOpen)) {
         setParentsOpen(false);
+        setCollectionOpen(false);
         setConfirmReset(false);
         return;
       }
-      if (event.ctrlKey || event.metaKey || event.altKey || parentsOpen) return;
+      if (event.ctrlKey || event.metaKey || event.altKey || parentsOpen || collectionOpen) return;
       const letter = event.key.toLocaleUpperCase('it-IT');
       if (ALPHABET.includes(letter)) {
         event.preventDefault();
@@ -222,7 +240,7 @@ export default function App() {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [handleLetter, parentsOpen]);
+  }, [handleLetter, parentsOpen, collectionOpen]);
 
   const selectLevel = (index: number) => {
     if (index > progress.unlockedLevel) return;
@@ -292,6 +310,7 @@ export default function App() {
     resetRound();
     setConfirmReset(false);
     setParentsOpen(false);
+    setCollectionOpen(false);
   };
 
   return (
@@ -310,6 +329,16 @@ export default function App() {
           </a>
           <div className="header-actions">
             <span className="free-pill"><Sparkles size={15} /> Sempre gratis</span>
+            <button
+              className="collection-button"
+              type="button"
+              onClick={() => setCollectionOpen(true)}
+              aria-label={`Apri la collezione: ${completedUnicornCount} unicorni completati su ${UNICORNS.length}`}
+            >
+              <Blocks size={20} />
+              <span>Unicorni</span>
+              <strong>{completedUnicornCount}/{UNICORNS.length}</strong>
+            </button>
             <button
               className="sound-button"
               type="button"
@@ -362,9 +391,7 @@ export default function App() {
                 const levelCompleted = level.words.every((word) =>
                   progress.completedWordIds.includes(word.id),
                 );
-                const levelCompletedCount = level.words.filter((word) =>
-                  progress.completedWordIds.includes(word.id),
-                ).length;
+                const levelCompletedCount = countCompletedWords(level, progress.completedWordIds);
 
                 return (
                   <button
@@ -394,13 +421,28 @@ export default function App() {
               })}
             </div>
 
-            <div className="buddy-card">
-              <PixelBuddy />
-              <div>
-                <strong>Ogni parola è un superpotere!</strong>
-                <span>Bit, la tua guida</span>
-              </div>
-            </div>
+            <button
+              className="unicorn-progress-card"
+              type="button"
+              onClick={() => setCollectionOpen(true)}
+              aria-label={`${currentUnicorn.name}: ${currentUnicornBlocks} mattoncini su ${currentLevel.words.length}. Apri la collezione`}
+            >
+              <BlockUnicorn
+                unicorn={currentUnicorn}
+                blocks={currentUnicornBlocks}
+                totalBlocks={currentLevel.words.length}
+                className="unicorn-progress-picture"
+              />
+              <span className="unicorn-progress-copy">
+                <small>IL TUO UNICORNO</small>
+                <strong>{currentUnicorn.name}</strong>
+                <span className="unicorn-block-count"><Blocks size={14} /> {currentUnicornBlocks}/{currentLevel.words.length} mattoncini</span>
+                <span className="unicorn-mini-progress" aria-hidden="true">
+                  <i style={{ width: `${(currentUnicornBlocks / currentLevel.words.length) * 100}%` }} />
+                </span>
+                <em>{currentUnicornBlocks === currentLevel.words.length ? 'Completato! Vai alla collezione' : 'Una parola = un mattoncino'}</em>
+              </span>
+            </button>
           </aside>
 
           <section className={`game-card${roundStatus === 'word-complete' ? ' is-celebrating' : ''}`} aria-label={`Gioco: ${currentLevel.name}`}>
@@ -499,15 +541,21 @@ export default function App() {
                 </div>
 
                 {roundStatus === 'word-complete' && (
-                  <div className="word-complete-actions">
-                    <button className="button button--light button--small" type="button" onClick={resetRound}>
-                      <RotateCcw size={17} /> Ripeti
-                    </button>
-                    <button className="button button--primary button--small" type="button" onClick={goForward}>
-                      {isLastWord ? 'Vai al traguardo' : 'Prossima parola'}
-                      <ArrowRight size={18} />
-                    </button>
-                  </div>
+                  <>
+                    <div className={`block-reward${earnedBlock ? '' : ' is-practice'}`}>
+                      {earnedBlock ? <Blocks size={17} /> : <Sparkles size={16} />}
+                      <span>{earnedBlock ? `+1 mattoncino per ${currentUnicorn.name}` : 'Allenamento completato: sempre più bravo!'}</span>
+                    </div>
+                    <div className="word-complete-actions">
+                      <button className="button button--light button--small" type="button" onClick={resetRound}>
+                        <RotateCcw size={17} /> Ripeti
+                      </button>
+                      <button className="button button--primary button--small" type="button" onClick={goForward}>
+                        {isLastWord ? 'Vai al traguardo' : 'Prossima parola'}
+                        <ArrowRight size={18} />
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
             </div>
@@ -607,15 +655,76 @@ export default function App() {
         </div>
       )}
 
+      {collectionOpen && (
+        <div className="modal-backdrop" onMouseDown={(event) => {
+          if (event.target === event.currentTarget) setCollectionOpen(false);
+        }}>
+          <section className="collection-modal" role="dialog" aria-modal="true" aria-labelledby="collection-title">
+            <button className="modal-close" type="button" onClick={() => setCollectionOpen(false)} aria-label="Chiudi la collezione">
+              <X size={22} />
+            </button>
+            <div className="collection-heading-icon"><Blocks size={29} /></div>
+            <span className="section-kicker">I TUOI CAPOLAVORI A BLOCCHI</span>
+            <h2 id="collection-title">I miei unicorni</h2>
+            <p className="collection-intro">Ogni nuova parola aggiunge un mattoncino. Completa i livelli per costruirli tutti!</p>
+            <div className="collection-summary">
+              <span><Blocks size={18} /> {completedCount} mattoncini</span>
+              <span><Sparkles size={18} /> {completedUnicornCount}/{UNICORNS.length} unicorni</span>
+            </div>
+
+            <div className="collection-grid">
+              {LEVELS.map((level, index) => {
+                const unicorn = UNICORNS[index];
+                const blocks = countCompletedWords(level, progress.completedWordIds);
+                const complete = blocks === level.words.length;
+                const locked = index > progress.unlockedLevel;
+                return (
+                  <article className={`collection-card${complete ? ' is-complete' : ''}${locked ? ' is-locked' : ''}`} key={unicorn.id}>
+                    <span className="collection-card-level">LIVELLO {index}</span>
+                    <BlockUnicorn
+                      unicorn={unicorn}
+                      blocks={blocks}
+                      totalBlocks={level.words.length}
+                      className="collection-unicorn"
+                    />
+                    <h3>{unicorn.name}</h3>
+                    <div className="collection-card-progress" aria-hidden="true">
+                      <i style={{ width: `${(blocks / level.words.length) * 100}%` }} />
+                    </div>
+                    <p><Blocks size={14} /> {blocks}/{level.words.length} mattoncini</p>
+                    <small>
+                      {complete
+                        ? 'Unicorno completato!'
+                        : locked
+                          ? `Si sblocca al livello ${index}`
+                          : `Mancano ${level.words.length - blocks} mattoncini`}
+                    </small>
+                  </article>
+                );
+              })}
+            </div>
+
+            <button className="button button--primary collection-resume" type="button" onClick={() => setCollectionOpen(false)} autoFocus>
+              Continua a costruire <ArrowRight size={18} />
+            </button>
+          </section>
+        </div>
+      )}
+
       {roundStatus === 'level-complete' && (
         <div className="modal-backdrop level-backdrop">
           <section className="level-complete-modal" role="dialog" aria-modal="true" aria-labelledby="level-complete-title">
             <div className="celebration-spark celebration-spark--one" aria-hidden="true" />
             <div className="celebration-spark celebration-spark--two" aria-hidden="true" />
-            <PixelTrophy />
-            <span className="section-kicker">{isLastLevel ? 'AVVENTURA COMPLETATA' : 'LIVELLO COMPLETATO'}</span>
-            <h2 id="level-complete-title">{isLastLevel ? 'Sei un mago delle parole!' : 'Nuovo livello sbloccato!'}</h2>
-            <p>{isLastLevel ? 'Hai completato tutte le parole di questa avventura. Che campione!' : `Hai composto tutte le ${currentLevel.words.length} parole. Bit è orgoglioso di te!`}</p>
+            <BlockUnicorn
+              unicorn={currentUnicorn}
+              blocks={currentLevel.words.length}
+              totalBlocks={currentLevel.words.length}
+              className="level-unicorn"
+            />
+            <span className="section-kicker">{isLastLevel ? 'COLLEZIONE COMPLETATA' : 'UNICORNO COMPLETATO'}</span>
+            <h2 id="level-complete-title">{isLastLevel ? 'Sei un mago delle parole!' : `Hai costruito ${currentUnicorn.name}!`}</h2>
+            <p>{isLastLevel ? 'Hai costruito tutti gli unicorni e completato questa avventura. Che campione!' : `Hai usato ${currentLevel.words.length} mattoncini e sbloccato un nuovo livello. Continua a costruire!`}</p>
             <div className="celebration-stars" aria-label="Gran bel lavoro">
               <Star size={38} fill="currentColor" />
               <Star size={48} fill="currentColor" />

@@ -158,6 +158,123 @@ const pictures: Record<IllustrationName, React.ReactNode> = {
       <path d="M48 43l4 9 10 1-8 7 3 10-9-5-9 5 2-10-7-7 10-1zM207 137l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z" fill="#fff9df" strokeWidth="3" />
     </Picture>
   ),
+  cane: (
+    <Picture>
+      <path d="M70 132c-28-4-35-29-19-37 10-5 19 2 17 12" fill="none" stroke="#b77b4d" strokeWidth="16" />
+      <path d="M70 132c-28-4-35-29-19-37 10-5 19 2 17 12" fill="none" />
+      <ellipse cx="128" cy="128" rx="61" ry="40" fill="#d99a61" />
+      <path d="M88 145l-5 27h32l6-25M151 146l4 26h33l-12-32" fill="#d99a61" />
+      <path d="M78 80c-13-25-7-47 9-49 17-2 28 15 28 35M145 65c5-26 21-39 35-30 15 10 11 35-3 55" fill="#9a633f" />
+      <path d="M75 88c0-35 24-53 55-53 34 0 58 21 55 58-3 35-25 53-56 53-32 0-54-23-54-58z" fill="#d99a61" />
+      <path d="M101 104c5-19 46-22 58 0 12 23-6 40-29 40-22 0-35-20-29-40z" fill="#fff0d2" />
+      <circle cx="103" cy="84" r="5" fill={ink} stroke="none" />
+      <circle cx="155" cy="84" r="5" fill={ink} stroke="none" />
+      <path d="M121 103l8 6 8-6-8-6z" fill={ink} />
+      <path d="M129 110v7m0 0c-7 7-14 3-16-1m16 1c7 7 14 3 16-1" fill="none" strokeWidth="3" />
+      <path d="M135 125c4 14 17 12 18 1" fill="#f08f9d" strokeWidth="3" />
+      <path d="M78 172h110" fill="none" />
+      <path d="M169 56l12 10" fill="none" stroke="#ffd84d" strokeWidth="7" />
+    </Picture>
+  ),
+  luna: (
+    <Picture>
+      <path d="M165 24c-51-8-96 33-92 86 4 51 50 76 96 54-48-4-70-79-4-140z" fill="#ffd84d" />
+      <path d="M110 62c-16 19-21 44-13 65" fill="none" stroke="#fff0a6" strokeWidth="8" />
+      <circle cx="113" cy="102" r="4.5" fill={ink} stroke="none" />
+      <path d="M104 125c8 6 17 6 24 0" fill="none" strokeWidth="3" />
+      <circle cx="93" cy="119" r="7" fill="#f3a58d" stroke="none" />
+      <path d="M47 44l4 9 10 1-8 7 3 10-9-5-9 5 2-10-7-7 10-1zM204 82l4 9 10 1-8 7 3 10-9-5-9 5 2-10-7-7 10-1zM192 151l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1z" fill="#fff9df" strokeWidth="3" />
+    </Picture>
+  ),
+  palla: (
+    <Picture>
+      <circle cx="130" cy="102" r="70" fill="#ffd84d" />
+      <path d="M130 32c-23 18-35 42-35 70s12 52 35 70c23-18 35-42 35-70s-12-52-35-70z" fill="#67c9e8" />
+      <path d="M130 32c-42 0-72 29-70 65 20-9 42-8 60 3-4-28 1-51 10-68z" fill="#ef665f" />
+      <path d="M130 172c42 0 72-29 70-65-20 9-42 8-60-3 4 28-1 51-10 68z" fill="#62c777" />
+      <circle cx="130" cy="102" r="70" fill="none" />
+      <path d="M95 102c0-28 12-52 35-70 23 18 35 42 35 70s-12 52-35 70c-23-18-35-42-35-70zM60 97c20-9 42-8 60 3M140 100c18-11 40-12 60-3" fill="none" strokeWidth="3" />
+      <circle cx="130" cy="102" r="10" fill="#fff9e9" />
+      <path d="M83 60c10-11 23-18 36-21" fill="none" stroke="#fff" strokeWidth="6" opacity="0.65" />
+    </Picture>
+  ),
+  nave: (
+    <Picture>
+      <path d="M130 29v101" fill="none" stroke="#825539" strokeWidth="7" />
+      <path d="M122 42L63 108h59z" fill="#fff5d6" />
+      <path d="M139 38l51 70h-51z" fill="#67c9e8" />
+      <path d="M130 29h35l-8 12h-27z" fill="#ffd84d" />
+      <path d="M39 119h183l-25 48H67z" fill="#ef665f" />
+      <path d="M53 132h157l-6 11H59z" fill="#fff5d6" strokeWidth="3" />
+      <path d="M67 167h130" fill="none" />
+      <path d="M26 179c14-8 27-8 41 0s27 8 41 0 27-8 41 0 27 8 41 0 27-8 44 0" fill="none" stroke="#67c9e8" strokeWidth="5" />
+      <circle cx="94" cy="151" r="5" fill="#ffd84d" strokeWidth="3" />
+      <circle cx="130" cy="151" r="5" fill="#ffd84d" strokeWidth="3" />
+      <circle cx="166" cy="151" r="5" fill="#ffd84d" strokeWidth="3" />
+    </Picture>
+  ),
+  gelato: (
+    <Picture>
+      <path d="M93 106h76l-38 80z" fill="#dfa15e" />
+      <path d="M108 126l43 36M151 121l-31 49M101 112h61" fill="none" stroke="#ad7145" strokeWidth="3" />
+      <circle cx="99" cy="91" r="31" fill="#f3a5c5" />
+      <circle cx="161" cy="91" r="31" fill="#8fd8b0" />
+      <circle cx="130" cy="65" r="38" fill="#fff0c2" />
+      <path d="M112 44c8-12 25-16 37-8" fill="none" stroke="#fff" strokeWidth="6" opacity="0.7" />
+      <path d="M130 28c-2-12 5-19 15-21" fill="none" stroke="#429e62" strokeWidth="4" />
+      <circle cx="130" cy="27" r="11" fill="#ef665f" />
+      <circle cx="119" cy="62" r="4" fill={ink} stroke="none" />
+      <circle cx="141" cy="62" r="4" fill={ink} stroke="none" />
+      <path d="M122 77c5 5 11 5 16 0" fill="none" strokeWidth="3" />
+    </Picture>
+  ),
+  fungo: (
+    <Picture>
+      <path d="M104 97h53l13 72H91z" fill="#fff0d2" />
+      <path d="M103 133c15 8 37 8 54 0" fill="none" stroke="#e1cba8" strokeWidth="4" />
+      <path d="M41 99c0-48 39-77 89-77s89 29 89 77c-49 15-129 15-178 0z" fill="#ef665f" />
+      <path d="M42 99c49 15 129 15 178 0" fill="none" />
+      <circle cx="84" cy="63" r="13" fill="#fff9e9" stroke="none" />
+      <circle cx="139" cy="45" r="15" fill="#fff9e9" stroke="none" />
+      <circle cx="179" cy="74" r="11" fill="#fff9e9" stroke="none" />
+      <circle cx="119" cy="83" r="9" fill="#fff9e9" stroke="none" />
+      <circle cx="120" cy="128" r="4" fill={ink} stroke="none" />
+      <circle cx="142" cy="128" r="4" fill={ink} stroke="none" />
+      <path d="M123 143c5 5 11 5 16 0" fill="none" strokeWidth="3" />
+      <path d="M63 171c2-15 8-22 17-25M184 171c-2-15-8-22-17-25" fill="none" stroke="#62c777" strokeWidth="6" />
+    </Picture>
+  ),
+  bicicletta: (
+    <Picture>
+      <circle cx="65" cy="137" r="38" fill="#eaf7f7" />
+      <circle cx="195" cy="137" r="38" fill="#eaf7f7" />
+      <circle cx="65" cy="137" r="6" fill="#ffd84d" />
+      <circle cx="195" cy="137" r="6" fill="#ffd84d" />
+      <path d="M65 137l39-60 34 60H65l28-39h69l33 39M138 137l24-66M104 77H87M151 71h28M162 71l33 66M93 98l-12-25" fill="none" stroke="#ef665f" strokeWidth="6" />
+      <path d="M104 77l34 60M93 98l45 39" fill="none" stroke="#67c9e8" strokeWidth="5" />
+      <path d="M76 67h27" fill="none" stroke="#17324d" strokeWidth="7" />
+      <path d="M156 61h29v10" fill="none" strokeWidth="5" />
+      <path d="M177 81h43l-7 30h-31z" fill="#ffd84d" />
+      <path d="M187 84v24M201 84v24M180 94h36" fill="none" stroke="#c99b35" strokeWidth="3" />
+      <path d="M65 99v76M27 137h76M195 99v76M157 137h76" fill="none" stroke="#9ab0b8" strokeWidth="2" />
+    </Picture>
+  ),
+  dinosauro: (
+    <Picture>
+      <path d="M76 131c-31 3-49-6-61-25 24 4 39-3 53-17" fill="#62c777" />
+      <ellipse cx="120" cy="124" rx="60" ry="41" fill="#62c777" />
+      <path d="M151 121c9-30 2-73 27-88 20-12 45 2 43 25-2 20-18 28-38 24l-5 54" fill="#62c777" />
+      <path d="M83 145l-8 28h33l10-27M139 145l4 28h34l-14-34" fill="#62c777" />
+      <path d="M79 91l4-20 16 12M107 80l8-20 14 15M137 79l12-18 11 18" fill="#ffd84d" />
+      <circle cx="199" cy="50" r="4.5" fill={ink} stroke="none" />
+      <path d="M202 67c6 3 12 2 16-2" fill="none" strokeWidth="3" />
+      <circle cx="202" cy="64" r="6" fill="#f3a58d" stroke="none" opacity="0.7" />
+      <circle cx="104" cy="113" r="10" fill="#429e62" stroke="none" />
+      <circle cx="136" cy="132" r="8" fill="#429e62" stroke="none" />
+      <path d="M94 135c14 11 35 14 54 7" fill="none" stroke="#8fdc83" strokeWidth="6" />
+      <path d="M67 174h110" fill="none" />
+    </Picture>
+  ),
 };
 
 const labels: Record<IllustrationName, string> = {
@@ -165,13 +282,21 @@ const labels: Record<IllustrationName, string> = {
   sole: 'Il sole',
   mela: 'Una mela',
   gatto: 'Un gatto',
+  cane: 'Un cane',
+  luna: 'La luna',
+  palla: 'Una palla',
+  nave: 'Una nave',
   fiore: 'Un fiore',
   pesce: 'Un pesce',
   albero: 'Un albero',
   libro: 'Un libro',
+  gelato: 'Un gelato',
+  fungo: 'Un fungo',
   tartaruga: 'Una tartaruga',
   elefante: 'Un elefante',
   aquilone: 'Un aquilone',
+  bicicletta: 'Una bicicletta',
+  dinosauro: 'Un dinosauro',
 };
 
 export default function WordPicture({ name }: { name: IllustrationName }) {

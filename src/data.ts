@@ -6,13 +6,21 @@ export type IllustrationName =
   | 'sole'
   | 'mela'
   | 'gatto'
+  | 'cane'
+  | 'luna'
+  | 'palla'
+  | 'nave'
   | 'fiore'
   | 'pesce'
   | 'albero'
   | 'libro'
+  | 'gelato'
+  | 'fungo'
   | 'tartaruga'
   | 'elefante'
-  | 'aquilone';
+  | 'aquilone'
+  | 'bicicletta'
+  | 'dinosauro';
 
 export type GuideMode = 'full' | 'half' | 'first' | 'none';
 
@@ -33,6 +41,55 @@ export interface Level {
   words: Word[];
 }
 
+export interface Unicorn {
+  id: string;
+  name: string;
+  body: string;
+  bodyLight: string;
+  mane: string;
+  accent: string;
+  accessory: 'star' | 'heart' | 'crown' | 'moon';
+}
+
+export const UNICORNS: Unicorn[] = [
+  {
+    id: 'stellina',
+    name: 'Stellina',
+    body: '#f3a5c5',
+    bodyLight: '#ffd2e2',
+    mane: '#9678db',
+    accent: '#ffd84d',
+    accessory: 'star',
+  },
+  {
+    id: 'nuvoletta',
+    name: 'Nuvoletta',
+    body: '#87d2e8',
+    bodyLight: '#c9f0f7',
+    mane: '#fffaf0',
+    accent: '#f3a5c5',
+    accessory: 'heart',
+  },
+  {
+    id: 'arcobaleno',
+    name: 'Arcobaleno',
+    body: '#ffd56b',
+    bodyLight: '#fff0ad',
+    mane: '#ef665f',
+    accent: '#67c9e8',
+    accessory: 'crown',
+  },
+  {
+    id: 'galassia',
+    name: 'Galassia',
+    body: '#a58bdd',
+    bodyLight: '#d5c6f1',
+    mane: '#5261a8',
+    accent: '#ffd84d',
+    accessory: 'moon',
+  },
+];
+
 export const LEVELS: Level[] = [
   {
     id: 'impariamo-a-leggere',
@@ -46,6 +103,8 @@ export const LEVELS: Level[] = [
       { id: 'guida-casa', text: 'CASA', illustration: 'casa' },
       { id: 'guida-sole', text: 'SOLE', illustration: 'sole' },
       { id: 'guida-mela', text: 'MELA', illustration: 'mela' },
+      { id: 'guida-cane', text: 'CANE', illustration: 'cane' },
+      { id: 'guida-luna', text: 'LUNA', illustration: 'luna' },
     ],
   },
   {
@@ -61,6 +120,8 @@ export const LEVELS: Level[] = [
       { id: 'sole', text: 'SOLE', illustration: 'sole' },
       { id: 'mela', text: 'MELA', illustration: 'mela' },
       { id: 'gatto', text: 'GATTO', illustration: 'gatto' },
+      { id: 'palla', text: 'PALLA', illustration: 'palla' },
+      { id: 'nave', text: 'NAVE', illustration: 'nave' },
     ],
   },
   {
@@ -76,6 +137,8 @@ export const LEVELS: Level[] = [
       { id: 'pesce', text: 'PESCE', illustration: 'pesce' },
       { id: 'albero', text: 'ALBERO', illustration: 'albero' },
       { id: 'libro', text: 'LIBRO', illustration: 'libro' },
+      { id: 'gelato', text: 'GELATO', illustration: 'gelato' },
+      { id: 'fungo', text: 'FUNGO', illustration: 'fungo' },
     ],
   },
   {
@@ -90,6 +153,8 @@ export const LEVELS: Level[] = [
       { id: 'tartaruga', text: 'TARTARUGA', illustration: 'tartaruga' },
       { id: 'elefante', text: 'ELEFANTE', illustration: 'elefante' },
       { id: 'aquilone', text: 'AQUILONE', illustration: 'aquilone' },
+      { id: 'bicicletta', text: 'BICICLETTA', illustration: 'bicicletta' },
+      { id: 'dinosauro', text: 'DINOSAURO', illustration: 'dinosauro' },
     ],
   },
 ];

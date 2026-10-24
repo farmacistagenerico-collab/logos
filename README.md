@@ -32,10 +32,13 @@ npm run build:standalone # genera il file autonomo logos.html
 - **Livello 1 — Le prime parole:** alcune lettere restano visibili come indizio.
 - **Livello 2 — Parole in salita:** resta soltanto la prima lettera e l’alfabeto si mischia.
 - **Livello 3 — Sfida da campione:** la parola scritta scompare, restano solo l’immagine e le lettere mischiate.
-- 14 parole da comporre e 11 illustrazioni originali, con pronuncia tramite le voci italiane del dispositivo ed effetti sonori sintetizzati localmente.
+- **22 parole da comporre**, ciascuna con un’illustrazione originale, pronuncia tramite le voci italiane del dispositivo ed effetti sonori sintetizzati localmente.
+- **Un mattoncino per ogni nuova parola completata:** rigiocare la stessa parola è sempre possibile, ma non assegna premi doppi.
+- Quattro unicorni da costruire pezzo per pezzo — **Stellina, Nuvoletta, Arcobaleno e Galassia** — uno per ogni livello.
+- La raccolta **“I miei unicorni”** mostra i pezzi ottenuti, quelli mancanti e i modelli completati. I mattoncini già presenti nei salvataggi vengono riconosciuti automaticamente.
 - Indizi su richiesta, feedback positivo, supporto alla tastiera e nessuna penalità o limite di tempo.
 - Livelli sbloccabili e progressi salvati esclusivamente nel `localStorage` del dispositivo, con migrazione dai salvataggi precedenti.
-- Area genitori con possibilità di azzerare i progressi.
+- Area genitori con possibilità di azzerare parole, livelli e mattoncini.
 
 Non sono richiesti account, acquisti o connessione a un backend. La grafica pixel-art è originale e non utilizza personaggi o risorse di franchise esistenti.
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ALPHABET, LEVELS, TOTAL_WORDS } from './data';
+import { ALPHABET, LEVELS, TOTAL_WORDS, UNICORNS } from './data';
 import {
   INITIAL_PROGRESS,
   completeLevel,
@@ -10,6 +10,17 @@ import {
 } from './gameLogic';
 
 describe('game progression', () => {
+  it('has one collectible unicorn for every level', () => {
+    expect(UNICORNS).toHaveLength(LEVELS.length);
+    expect(new Set(UNICORNS.map((unicorn) => unicorn.name)).size).toBe(LEVELS.length);
+  });
+
+  it('uses unique ids for every collectible word', () => {
+    const ids = LEVELS.flatMap((level) => level.words.map((word) => word.id));
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(ids).toHaveLength(TOTAL_WORDS);
+  });
+
   it('keeps every letter when shuffling', () => {
     const shuffled = shuffleLetters(ALPHABET, () => 0.42);
     expect(shuffled).toHaveLength(ALPHABET.length);
