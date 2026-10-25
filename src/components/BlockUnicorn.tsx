@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import type { Unicorn } from '../data';
 
 const PART_COUNT = 8;
-const ink = '#17324d';
+const ink = '#5b4774';
 
 interface BlockUnicornProps {
   unicorn: Unicorn;
@@ -84,7 +84,6 @@ export default function BlockUnicorn({
       viewBox="0 0 210 170"
       role="img"
       aria-label={`${unicorn.name}: ${blocks} mattoncini su ${totalBlocks}`}
-      shapeRendering="crispEdges"
     >
       <g stroke={ink} strokeWidth="3" strokeLinejoin="round" strokeLinecap="round">
         {parts.map((part, index) => (

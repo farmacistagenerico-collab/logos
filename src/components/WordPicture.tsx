@@ -1,10 +1,10 @@
 import type { IllustrationName } from '../data';
 
-const ink = '#17324d';
+const ink = '#5b4774';
 
 function Picture({ children }: { children: React.ReactNode }) {
   return (
-    <g stroke={ink} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round">
+    <g stroke={ink} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
       {children}
     </g>
   );

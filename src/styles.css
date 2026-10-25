@@ -1261,10 +1261,6 @@ svg {
   user-select: none;
 }
 
-.letter-key.is-vowel {
-  background: #ffe482;
-}
-
 .letter-key:active:not(:disabled) {
   transform: translateY(3px);
   box-shadow: 0 1px 0 var(--ink);
@@ -1946,10 +1942,6 @@ svg {
     background: #e9f7fb;
     transform: translateY(-2px);
     box-shadow: 0 6px 0 var(--ink);
-  }
-
-  .letter-key.is-vowel:not(:disabled):hover {
-    background: #ffdf61;
   }
 
   .button--primary:hover { background: #df5552; }

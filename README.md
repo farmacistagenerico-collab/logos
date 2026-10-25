@@ -40,8 +40,8 @@ npm run build:standalone # genera il file autonomo logos.html
 - Livelli sbloccabili e progressi salvati esclusivamente nel `localStorage` del dispositivo, con migrazione dai salvataggi precedenti.
 - Area genitori con possibilità di azzerare parole, livelli e mattoncini.
 
-Non sono richiesti account, acquisti o connessione a un backend. La grafica pixel-art è originale e non utilizza personaggi o risorse di franchise esistenti.
+Non sono richiesti account, acquisti o connessione a un backend. La grafica moderna, ispirata a unicorni e caramelle, è originale e non utilizza personaggi o risorse di franchise esistenti. L’interfaccia riduce il testo non essenziale e usa tasti delle lettere uniformi, senza distinguere le vocali per colore.
 
 ## Tecnologie
 
-React, TypeScript, Vite, CSS responsive, Lucide Icons, Nunito e Press Start 2P (font inclusi localmente nella build).
+React, TypeScript, Vite, CSS responsive, Lucide Icons e Nunito (font incluso localmente nella build).

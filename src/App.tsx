@@ -3,10 +3,6 @@ import {
   Blocks,
   Check,
   ChevronRight,
-  Gamepad2,
-  Heart,
-  Image as ImageIcon,
-  Keyboard,
   Lightbulb,
   LockKeyhole,
   RotateCcw,
@@ -36,7 +32,7 @@ import {
   shuffleLetters,
   type SavedProgress,
 } from './gameLogic';
-import { ALPHABET, LEVELS, TOTAL_WORDS, UNICORNS, VOWELS, type Level } from './data';
+import { ALPHABET, LEVELS, TOTAL_WORDS, UNICORNS, type Level } from './data';
 import {
   playCorrectSound,
   playLevelCompleteSound,
@@ -58,24 +54,35 @@ interface Feedback {
 
 const initialFeedback: Feedback = {
   kind: 'neutral',
-  text: 'Guarda l’immagine e tocca la prima lettera.',
+  text: 'Tocca la prima lettera.',
 };
 
-const confettiColors = ['#ffd84d', '#ef665f', '#62c777', '#67c9e8', '#9a7ee8'];
+const confettiColors = ['#f49ac1', '#a98ce8', '#79d8c2', '#82c8f2', '#ffc6de'];
 
 function countCompletedWords(level: Level, completedWordIds: string[]): number {
   return level.words.filter((word) => completedWordIds.includes(word.id)).length;
 }
 
+function Candy({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 100 76" aria-hidden="true" focusable="false">
+      <path d="M29 25L8 13l5 19-5 19 22-11zM71 25l21-12-5 19 5 19-22-11z" fill="#c8b5f1" />
+      <rect x="24" y="15" width="52" height="43" rx="20" fill="#f49ac1" />
+      <path d="M42 18l-8 35M60 18l-8 35" fill="none" stroke="#fff4fa" strokeWidth="8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function WorldDecorations() {
   return (
-    <div className="world-decorations" aria-hidden="true">
-      <div className="pixel-cloud pixel-cloud--one"><i /><i /><i /></div>
-      <div className="pixel-cloud pixel-cloud--two"><i /><i /><i /></div>
-      <div className="pixel-cloud pixel-cloud--three"><i /><i /><i /></div>
-      <div className="tiny-pixel tiny-pixel--one" />
-      <div className="tiny-pixel tiny-pixel--two" />
-      <div className="tiny-pixel tiny-pixel--three" />
+    <div className="world-decorations fantasy-world" aria-hidden="true">
+      <span className="fantasy-glow fantasy-glow--one" />
+      <span className="fantasy-glow fantasy-glow--two" />
+      <Candy className="fantasy-candy fantasy-candy--one" />
+      <Candy className="fantasy-candy fantasy-candy--two" />
+      <span className="fantasy-spark fantasy-spark--one" />
+      <span className="fantasy-spark fantasy-spark--two" />
+      <span className="fantasy-spark fantasy-spark--three" />
     </div>
   );
 }
@@ -172,7 +179,7 @@ export default function App() {
         setHintLetter(null);
         setFeedback({
           kind: 'try-again',
-          text: `Quasi! La ${letter} non va qui. Prova ancora, puoi farcela!`,
+          text: `La ${letter} non va qui. Riprova!`,
         });
         if (progress.soundEnabled) playWrongSound();
         return;
@@ -188,7 +195,7 @@ export default function App() {
         setEarnedBlock(!progress.completedWordIds.includes(currentWord.id));
         setFeedback({
           kind: 'success',
-          text: `Fantastico! Hai scritto ${currentWord.text}!`,
+          text: `Hai scritto ${currentWord.text}!`,
         });
         setProgress((previous) => {
           const withWord = completeWord(previous, currentWord.id);
@@ -256,7 +263,7 @@ export default function App() {
     setHintLetter(expectedLetter);
     setFeedback({
       kind: 'hint',
-      text: `Cerca la lettera ${expectedLetter}: si è accesa per aiutarti!`,
+      text: `Prova la lettera ${expectedLetter}.`,
     });
     if (progress.soundEnabled) speakItalian(expectedLetter);
     hintTimer.current = window.setTimeout(() => setHintLetter(null), 2200);
@@ -322,13 +329,9 @@ export default function App() {
         <div className="header-inner">
           <a className="brand" href="#main-game" aria-label="Logos, vai al gioco">
             <LogoMark />
-            <span className="brand-copy">
-              <span className="brand-name">logos<span className="brand-dot">.</span></span>
-              <span className="brand-tagline">PICCOLI GIOCHI, GRANDI SCOPERTE</span>
-            </span>
+            <span className="brand-name">logos<span className="brand-dot">.</span></span>
           </a>
           <div className="header-actions">
-            <span className="free-pill"><Sparkles size={15} /> Sempre gratis</span>
             <button
               className="collection-button"
               type="button"
@@ -347,7 +350,6 @@ export default function App() {
               title={progress.soundEnabled ? 'Disattiva i suoni' : 'Attiva i suoni'}
             >
               {progress.soundEnabled ? <Volume2 size={21} /> : <VolumeX size={21} />}
-              <span>Suoni {progress.soundEnabled ? 'sì' : 'no'}</span>
             </button>
             <div className="star-counter" aria-label={`${completedCount} parole completate su ${TOTAL_WORDS}`}>
               <Star size={23} fill="currentColor" strokeWidth={2.5} />
@@ -361,9 +363,7 @@ export default function App() {
       <main className="main-content" id="main-game">
         <section className="page-heading" aria-labelledby="page-title">
           <div>
-            <div className="eyebrow"><Gamepad2 size={17} /> IL PRIMO GIOCO DI LOGOS</div>
             <h1 id="page-title">Parole in <span>viaggio</span></h1>
-            <p>Guarda, ascolta e componi la parola. Una lettera dopo l’altra!</p>
           </div>
           <button className="parents-button" type="button" onClick={() => setParentsOpen(true)}>
             <ShieldCheck size={20} />
@@ -375,8 +375,7 @@ export default function App() {
           <aside className="adventure-panel" aria-label="La tua avventura">
             <div className="adventure-heading">
               <div>
-                <span className="section-kicker">LA TUA AVVENTURA</span>
-                <h2>Scegli il livello</h2>
+                <h2>Livelli</h2>
               </div>
               <span className="percentage-badge">{adventurePercentage}%</span>
             </div>
@@ -408,10 +407,9 @@ export default function App() {
                     </span>
                     <span className="level-copy">
                       <strong>{level.shortName}</strong>
-                      <small>{locked ? 'Completa il livello prima' : level.description}</small>
                       {!locked && (
                         <span className="level-word-count">
-                          {levelCompletedCount}/{level.words.length} parole
+                          {levelCompletedCount}/{level.words.length}
                         </span>
                       )}
                     </span>
@@ -434,13 +432,11 @@ export default function App() {
                 className="unicorn-progress-picture"
               />
               <span className="unicorn-progress-copy">
-                <small>IL TUO UNICORNO</small>
                 <strong>{currentUnicorn.name}</strong>
-                <span className="unicorn-block-count"><Blocks size={14} /> {currentUnicornBlocks}/{currentLevel.words.length} mattoncini</span>
+                <span className="unicorn-block-count"><Blocks size={14} /> {currentUnicornBlocks}/{currentLevel.words.length}</span>
                 <span className="unicorn-mini-progress" aria-hidden="true">
                   <i style={{ width: `${(currentUnicornBlocks / currentLevel.words.length) * 100}%` }} />
                 </span>
-                <em>{currentUnicornBlocks === currentLevel.words.length ? 'Completato! Vai alla collezione' : 'Una parola = un mattoncino'}</em>
               </span>
             </button>
           </aside>
@@ -448,10 +444,9 @@ export default function App() {
           <section className={`game-card${roundStatus === 'word-complete' ? ' is-celebrating' : ''}`} aria-label={`Gioco: ${currentLevel.name}`}>
             <div className="game-card-top">
               <div className="game-meta">
-                <span className={`level-badge level-badge--${levelIndex}`}>LIVELLO {levelIndex}</span>
-                <span className="mechanic-label">{currentLevel.mechanic}</span>
+                <span className={`level-badge level-badge--${levelIndex}`}>Livello {levelIndex}</span>
               </div>
-              <span className="word-counter">Parola <strong>{wordIndex + 1}</strong> di {currentLevel.words.length}</span>
+              <span className="word-counter" aria-label={`Parola ${wordIndex + 1} di ${currentLevel.words.length}`}><strong>{wordIndex + 1}</strong>/{currentLevel.words.length}</span>
             </div>
 
             <div className="word-progress" aria-label={`Avanzamento nel livello: parola ${wordIndex + 1} di ${currentLevel.words.length}`}>
@@ -481,7 +476,13 @@ export default function App() {
               )}
 
               <div className="picture-scene">
-                <span className="picture-label"><ImageIcon size={14} /> INDOVINA</span>
+                <div className="scene-magic" aria-hidden="true">
+                  <span className="scene-soft-cloud scene-soft-cloud--one" />
+                  <span className="scene-soft-cloud scene-soft-cloud--two" />
+                  <Candy className="scene-candy" />
+                  <i className="scene-star scene-star--one" />
+                  <i className="scene-star scene-star--two" />
+                </div>
                 {wordGuide && (
                   <div
                     className={`picture-word-guide picture-word-guide--${currentLevel.guide}`}
@@ -499,18 +500,14 @@ export default function App() {
                     </span>
                   </div>
                 )}
-                <div className="scene-cloud" aria-hidden="true"><i /><i /></div>
                 <WordPicture name={currentWord.illustration} />
-                <div className="scene-hill scene-hill--back" aria-hidden="true" />
-                <div className="scene-ground" aria-hidden="true"><i /><i /><i /><i /><i /></div>
                 <button className="listen-button" type="button" onClick={listenToWord}>
                   <Volume2 size={19} />
-                  <span>Ascolta la parola</span>
+                  <span>Ascolta</span>
                 </button>
               </div>
 
               <div className="answer-zone">
-                <span className="answer-kicker">CHE PAROLA È?</span>
                 <h2>Componi la parola</h2>
                 <div
                   className={`word-slots${currentWord.text.length > 7 ? ' word-slots--long' : ''}`}
@@ -544,7 +541,7 @@ export default function App() {
                   <>
                     <div className={`block-reward${earnedBlock ? '' : ' is-practice'}`}>
                       {earnedBlock ? <Blocks size={17} /> : <Sparkles size={16} />}
-                      <span>{earnedBlock ? `+1 mattoncino per ${currentUnicorn.name}` : 'Allenamento completato: sempre più bravo!'}</span>
+                      <span>{earnedBlock ? `+1 mattoncino per ${currentUnicorn.name}` : 'Bravo, continua ad allenarti!'}</span>
                     </div>
                     <div className="word-complete-actions">
                       <button className="button button--light button--small" type="button" onClick={resetRound}>
@@ -562,7 +559,6 @@ export default function App() {
 
             <div className="letter-deck">
               <div className="letter-deck-heading">
-                <h2><span className="tiny-cursor" aria-hidden="true" /> Tocca le lettere nell’ordine giusto</h2>
                 <button
                   className="hint-button"
                   type="button"
@@ -577,7 +573,7 @@ export default function App() {
               <div className="alphabet-grid" role="group" aria-label={currentLevel.shuffled ? 'Alfabeto mischiato' : 'Alfabeto in ordine'}>
                 {letters.map((letter) => (
                   <button
-                    className={`letter-key${VOWELS.has(letter) ? ' is-vowel' : ''}${wrongLetter === letter ? ' is-wrong' : ''}${correctLetter === letter ? ' is-right' : ''}${hintLetter === letter ? ' is-hint' : ''}`}
+                    className={`letter-key${wrongLetter === letter ? ' is-wrong' : ''}${correctLetter === letter ? ' is-right' : ''}${hintLetter === letter ? ' is-hint' : ''}`}
                     type="button"
                     key={letter}
                     onClick={() => handleLetter(letter)}
@@ -588,29 +584,11 @@ export default function App() {
                   </button>
                 ))}
               </div>
-              <div className="deck-note">
-                <span><Keyboard size={16} /> Puoi anche usare la tastiera</span>
-                <i aria-hidden="true" />
-                <span><b className="vowel-sample">A</b> Le vocali sono gialle</span>
-              </div>
             </div>
           </section>
         </div>
 
-        <section className="gentle-promise" aria-label="Un gioco pensato per i bambini">
-          <span><Check size={16} /> Niente pubblicità</span>
-          <span><Check size={16} /> Nessun cronometro</span>
-          <span><Check size={16} /> Errori? Si riprova!</span>
-        </section>
       </main>
-
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="footer-brand"><LogoMark small /><span><strong>logos.</strong> Imparare giocando, naturalmente.</span></div>
-          <span className="footer-note">Fatto per piccole mani e grandi curiosità <Heart size={13} fill="currentColor" aria-hidden="true" /></span>
-        </div>
-        <div className="footer-pixels" aria-hidden="true" />
-      </footer>
 
       {parentsOpen && (
         <div className="modal-backdrop" onMouseDown={(event) => {
@@ -627,7 +605,7 @@ export default function App() {
 
             <div className="parent-features">
               <div><span><Check size={20} /></span><p><strong>Gratis, davvero</strong>Nessuna pubblicità, acquisto o iscrizione.</p></div>
-              <div><span><Sparkles size={20} /></span><p><strong>Errori che aiutano</strong>Niente vite perse: solo indizi gentili e nuovi tentativi.</p></div>
+              <div><span><Sparkles size={20} /></span><p><strong>Errori che aiutano</strong>Niente vite perse né cronometro: solo indizi e nuovi tentativi.</p></div>
               <div><span><LockKeyhole size={20} /></span><p><strong>Progressi sul dispositivo</strong>I risultati restano qui, senza profili o dati online.</p></div>
             </div>
 
@@ -668,7 +646,7 @@ export default function App() {
             <h2 id="collection-title">I miei unicorni</h2>
             <p className="collection-intro">Ogni nuova parola aggiunge un mattoncino. Completa i livelli per costruirli tutti!</p>
             <div className="collection-summary">
-              <span><Blocks size={18} /> {completedCount} mattoncini</span>
+              <span><Blocks size={18} /> {completedCount} {completedCount === 1 ? 'mattoncino' : 'mattoncini'}</span>
               <span><Sparkles size={18} /> {completedUnicornCount}/{UNICORNS.length} unicorni</span>
             </div>
 
